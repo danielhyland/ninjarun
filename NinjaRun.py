@@ -184,10 +184,11 @@ class Player(pygame.sprite.Sprite):
 class PlatformGame():
     
     
-    def __init__(self):
+    def __init__(self,fps=20):
         '''
         setup
         '''
+        self.fps=fps
         self.clock = pygame.time.Clock()
         pygame.init()
         self.world    = pygame.display.set_mode([worldx,worldy])
@@ -234,7 +235,8 @@ class PlatformGame():
         return ground_list
      
     def main(self):
-        
+
+        fps=self.fps
         main = True
    
         '''
@@ -283,7 +285,8 @@ class PlatformGame():
                 largerFont=pygame.font.SysFont('comicsans',50)
                 text= largerFont.render('GAME OVER!',1,WHITE)
                 self.world.blit(text,(worldx/3,worldy/3))
-              
+            if score==5:
+                fps+=5
             pygame.display.flip()
             self.clock.tick(fps)
             if main == False:
@@ -293,7 +296,7 @@ class PlatformGame():
         return score_display
  
  
-mygame=PlatformGame()
+mygame=PlatformGame(fps=fps)
 score=mygame.main()
 print ("Game over ")
 print('your score is '+score)
